@@ -10,6 +10,9 @@ editor_options:
   chunk_output_type: console
 ---
 
+## Project objective
+This project investigates whether extreme precipitation events have increased in San Juan, Puerto Rico, over the last 50 years. I use daily precipitation data from the NCEI's Luis Muñoz Marin International Airport station to identify and count extreme rainfall events by year.
+
 #1. Import and inspect data
 ```{r}
 #| include: false
@@ -71,15 +74,15 @@ class(raw_data$date)
 summary(raw_data$prcp_inches)
 ```
 
-
-# See all data points from 1941 to 2025
-
+# Scatterplot
 ```{r}
-plot(raw_data$date, raw_data$prcp_inches, type = "l", 
-     xlab = "date", 
-     ylab = "precipitation (inches)",
-     col = "navy", 
-     lwd = 0.5)
+# See all data points from 1941 to 2025
+ggplot(raw_data, aes(x = date, y = prcp_inches)) +
+  geom_point(color = "mediumblue", alpha = 0.4) +
+  labs(title = "Daily Precipitation in San Juan (1941–2025)",
+       x = "Date", 
+       y = "Precipitation (inches)") +
+  theme_classic()
 ```
 
 # Histogram
@@ -92,17 +95,4 @@ hist(raw_data$prcp_inches,
      border = "white")
 ```
 
-The histogram shows that daily precipitation in San Juan is highly skewed, with most days recording very little or no rainfall and a few days experiencing much higher totals. This pattern is typical of tropical rainfall regimes dominated by sporadic heavy rain events.
-
-# Boxplot
-
-```{r}
-ggplot(filter(raw_data, prcp_inches > 0), aes(x = "", y = prcp_inches)) +
-  geom_boxplot(width = 0.1, fill = "white", outlier.color = "red") +
-  labs(title = "Distribution of Daily Precipitation (Rainy Days Only)",
-       x = "",
-       y = "Precipitation (inches)") +
-    theme_classic()
-```
-
-The boxplot shows that most days in San Juan record little or no precipitation, while only few days experience much higher totals. After filtering to rainy days, the distribution remains right-skewed. This suggests that heavy rainfall events are not frequent but substantial when they do occur.
+The scatter plot and histogram shows that daily precipitation in San Juan is highly skewed, with most days recording little or no rainfall and a few days experiencing much higher totals. This pattern is typical of tropical rainfall regimes dominated by sporadic heavy rain events. To investigate whether these extreme events have become more frequent over time, further analysis with the negative binomial model will examine long-term trends in heavy precipitation days. 
