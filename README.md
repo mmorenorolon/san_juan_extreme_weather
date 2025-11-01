@@ -23,7 +23,7 @@ C:.
 ## 🧰 Tools & Technologies
 
 - **Language:** R
-- **Libraries:** `tidyverse`, `lubridate`, `ggplot2`, `dplyr`
+- **Libraries:** `tidyverse`, `lubridate`, `ggplot2`, `here`
 - **Platform:** RStudio, GitHub
 
 ## Data Source
