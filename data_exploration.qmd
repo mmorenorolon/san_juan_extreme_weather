@@ -1,0 +1,108 @@
+---
+title: "Exploratory Data Analysis of San Juan NCEI Weather Data"
+author: "Melannie Moreno Rolón"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+editor_options: 
+  chunk_output_type: console
+---
+
+#1. Import and inspect data
+```{r}
+#| include: false
+# Import libraries
+library(tidyverse)
+library(here)
+library(ggplot2)
+library(lubridate)
+
+# Read in data
+raw_data <- read_csv(here::here("raw_data","sju_ncei_data.csv"), na = "NA") %>% janitor::clean_names()
+
+# View dataframe
+head(raw_data)
+```
+
+#2. Rename columns
+```{r}
+#Rename column names
+names(raw_data) <- c("date", "tavg_degrees_fahrenheit", "tmax_degrees_fahrenheit", "tmin_degrees_fahrenheit", "prcp_inches",  "snow_inches", "snwd_inches")
+
+raw_data
+# Remove the first row of  the data frame
+raw_data <- raw_data[-c(1), ]
+
+raw_data
+```
+
+#3. Check variable data types
+
+```{r}
+# Check the class of the dataframe
+class(raw_data)
+
+# Check if every column in data frame is numeric
+sapply(raw_data, is.numeric)
+
+# Return the datatype of the precipitation column by converting column to numeric with transform()
+raw_data <- transform(raw_data, prcp_inches = as.numeric(raw_data$prcp_inches))  
+# Check if precipitation column values are numeric
+sapply(raw_data$prcp_inches, is.numeric)
+```
+
+#4. Datetime formatting
+
+```{r}
+# Convert date column to datetime format
+raw_data <- raw_data %>% 
+  mutate(date = lubridate::mdy(date))
+
+# Check class of date column
+class(raw_data$date)
+```
+
+
+# Summary statistics
+```{r}
+# Summary statistics for precipitation variable
+summary(raw_data$prcp_inches)
+```
+
+
+# See all data points from 1941 to 2025
+
+```{r}
+plot(raw_data$date, raw_data$prcp_inches, type = "l", 
+     xlab = "date", 
+     ylab = "precipitation (inches)",
+     col = "navy", 
+     lwd = 0.5)
+```
+
+# Histogram
+
+```{r}
+hist(raw_data$prcp_inches,  
+     main = "Distribution of Precipitation",
+     xlab = "Precipitation (inches)",
+     col = "navy",
+     border = "white")
+```
+
+The histogram shows that daily precipitation in San Juan is highly skewed, with most days recording very little or no rainfall and a few days experiencing much higher totals. This pattern is typical of tropical rainfall regimes dominated by sporadic heavy rain events.
+
+# Boxplot
+
+```{r}
+ggplot(filter(raw_data, prcp_inches > 0), aes(x = "", y = prcp_inches)) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.color = "red") +
+  labs(title = "Distribution of Daily Precipitation (Rainy Days Only)",
+       x = "",
+       y = "Precipitation (inches)") +
+    theme_classic()
+```
+
+The boxplot shows that most days in San Juan record little or no precipitation, while only few days experience much higher totals. After filtering to rainy days, the distribution remains right-skewed. This suggests that heavy rainfall events are not frequent but substantial when they do occur.
