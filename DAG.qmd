@@ -1,0 +1,27 @@
+---
+title: "DAG"
+format: html
+---
+
+```{r}
+# Load necessary libraries
+library(ggdag)
+library(tidyverse)
+theme_set(theme_dag())
+```
+
+
+```{r}
+# Define the DAG
+EW_YR_dag<- dagify(Year ~ SST,
+                   ENSO ~ SST,
+                   ExtremeEvents ~ SST,
+                   ExtremeEvents ~ Year)
+
+#plot DAG using the ggdag function
+ggdag(EW_YR_dag)
+```
+
+
+
+
