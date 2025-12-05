@@ -1,11 +1,12 @@
 # San Juan Extreme Weather Analysis
 
-This repository contains an exploratory data analysis of daily precipitation data collected at the Luis Muñoz Marín International Airport (SJU) in San Juan, Puerto Rico. The project investigates rainfall patterns and extreme weather events to support climate resilience and infrastructure planning.
+This repository contains the full documentation for my Statistics in Environmental Data Science (EDS222) final project, which explores trends in extreme precipitation events at the Luis Muñoz Marín International Airport (SJU) in San Juan, Puerto Rico. The analysis uses a Negative Binomial statistical model and large-scale climate indices to understand how extreme rainfall has changed over the past 50 years.
 
 ## Project Overview
 
-- **Objective:** Analyze historical precipitation data to identify trends in extreme events in San Juan.
-- **Context:** Puerto Rico faces increasing climate risks, including flooding and hurricanes. Understanding local precipitation dynamics is key to adaptation strategies.
+Research Question: Have extreme precipitation events increased in San Juan over the last 50 years?
+
+Key Findings: The long-term trend in extreme precipitation is small compared to the influence of climate variability, especially Tropical North Atlantic sea surface temperatures.
 
 ## Repository Structure
 ```
@@ -23,7 +24,7 @@ C:.
 ## 🧰 Tools & Technologies
 
 - **Language:** R
-- **Libraries:** `tidyverse`, `lubridate`, `ggplot2`, `here`
+- **Libraries:** `tidyverse`, `lubridate`, `ggplot2`, `kableExtra`, `broom`, `MASS` 
 - **Platform:** RStudio, GitHub
 
 ## Data Source
