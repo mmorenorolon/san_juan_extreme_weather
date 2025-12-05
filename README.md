@@ -14,12 +14,17 @@ C:.
 │   .gitignore
 │   .Rhistory
 │   data_exploration.qmd
+|   paper.qmd
+|   DAG.qmd
 │   LICENSE
 │   README.md
 │   sj_extreme_precipitation.Rproj
 │
 └───raw_data
         sju_ncei_data.csv
+        MONTHLY_ENSO_INDEX.csv
+        NAO_INDEX.csv
+        TNA_SST.csv
 ```
 ## 🧰 Tools & Technologies
 
