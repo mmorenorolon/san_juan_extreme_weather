@@ -144,7 +144,7 @@ pred_nao_nb <- pred_nao %>%
     log_upr = qnorm(0.975, mean = log_pred, sd = pred_nao_se$se.fit),
     
     # convert to response scale
-    pred     = exp(log_pred),
+    pred = exp(log_pred),
     pred_lwr = exp(log_lwr),
     pred_upr = exp(log_upr)
   )
